@@ -164,7 +164,69 @@ $ ls -lrt
 
 ##Time to now push my pushingtest file to GitHub
 
-git push origin master #it works !!
+$ git push -u origin master
+To https://github.com/wale77/waledba-repo.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/wale77/waledba-repo.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+.
+.
+.
+# I had to push the by by force
+
+$ git push origin master --force
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (7/7), 2.47 KiB | 505.00 KiB/s, done.
+Total 7 (delta 0), reused 0 (delta 0)
+To https://github.com/wale77/waledba-repo.git
+ + 5d5be57...88b51f3 master -> master (forced update)
+
+USER@DESKTOP-345SP79 MINGW64 ~/test-repo (master)
+$ pwd
+/c/Users/USER/test-repo
+
+USER@DESKTOP-345SP79 MINGW64 ~/test-repo (master)
+$ ls -lrt
+total 10
+-rw-r--r-- 1 USER 197611  187 Sep 23 18:48 pushingtest
+-rw-r--r-- 1 USER 197611 5787 Sep 24 03:39 Pushing-file
+-rw-r--r-- 1 USER 197611   38 Sep 24 03:39 README.md
+
+.
+.
+.
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+USER@DESKTOP-345SP79 MINGW64 ~/test-repo (master)
+$ git branch
+* master
+
+USER@DESKTOP-345SP79 MINGW64 ~/test-repo (master)
+$ git log
+commit 88b51f3de1ddf20c9ec3a0392e89fcac83e1525b (HEAD -> master, origin/master)
+Author: wale77 <waledurojaiye@yahoo.com>
+Date:   Tue Sep 24 03:41:55 2019 +0100
+
+    adding pushing-file and readme from remote
+
+commit b079b11780e19ad205163769797cba4551c8a7de
+Author: wale77 <waledurojaiye@yahoo.com>
+Date:   Mon Sep 23 18:55:12 2019 +0100
+
+    saving first change to the local repo
+
+USER@DESKTOP-345SP79 MINGW64 ~/test-repo (master)
+$
+
 
 
 
