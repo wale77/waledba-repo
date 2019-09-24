@@ -1,0 +1,178 @@
+##Setting up git's user details  ##
+git config --global user.name "myuser"
+git config --global user.email "myuser-email-that-must-be-same-on-remote-GitHub"
+==============================
+
+###Time to create my local repo (repository )
+cd 
+mkdir test-repo
+cd test-repo
+git init   # this initialises local repo
+git remote -v # this checks if I have any remote repo set up in GitHub
+git remote add origin https://github.com/wale77/waledba-repo.git  #linking remote repo on GitHub to my local repo 
+git remote -v
+origin  https://github.com/wale77/waledba-repo.git (fetch)
+origin  https://github.com/wale77/waledba-repo.git (push)
+===================================
+
+### I created a file called pushingtest , in my local repo. This is the file I will be pushing to remote GitHub later
+
+ echo "This is testing pushing, under 2 scenarios. Firstly, the remote GitHub wasn't initialised with a ReadMe file and secondly, the remote repo
+> in GitHub was initialised with a ReadMe file. " > pushingtest
+
+=======================================
+
+###Time to add newly created file to staging area to prepare for commit ###
+
+ ~/test-repo (master)
+$ pwd
+/c/Users/USER/test-repo
+ ~/test-repo (master)
+$ ls -lrt
+total 1
+-rw-r--r-- 1 USER 197611 187 Sep 23 18:48 pushingtest
+
+.
+.
+.
+$ git add pushingtest
+warning: LF will be replaced by CRLF in pushingtest.
+The file will have its original line endings in your working directory
+
+~/test-repo (master)
+ git status     #checking the status, to see if there is an untracked file that I want to commit to local repo
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   pushingtest
+.
+.
+## Time to commit 
+
+$ git commit -m "adding pushingtest to the local repo"
+[master (root-commit) b079b11] saving first change to the local repo
+ 1 file changed, 2 insertions(+)
+ create mode 100644 pushingtest
+
+USER@DESKTOP-345SP79 MINGW64 ~/test-repo (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+
+$ git commit -m "saving first change to the local repo"
+[master (root-commit) b079b11] saving first change to the local repo
+ 1 file changed, 2 insertions(+)
+ create mode 100644 pushingtest
+.
+.
+
+~/test-repo (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+### Time to push our file to remote repo to synchronise the two repositories but my first attempt failed !!I initialised GitHb with readme
+file and also added another file there, which my local repo doesn't know about.
+
+$ git push origin master
+To https://github.com/wale77/waledba-repo.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/wale77/waledba-repo.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+.
+.
+.
+##I decided to pull from the master (this sends all files in remote repo to local but does not sync the 2 repo's
+
+$ git pull origin master
+
+warning: no common commits
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (7/7), done.
+remote: Total 9 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (9/9), done.
+From https://github.com/wale77/waledba-repo
+ * branch            master     -> FETCH_HEAD
+ * [new branch]      master     -> origin/master
+fatal: refusing to merge unrelated histories
+.
+.
+
+#This (pulling ) failed because the two repo's are out of sync. I resolved by using clone (magic!)
+#Just as proof of concept, I tried to push the pushingtest file to remote repo
+
+~/test-repo (master)
+ git push origin master
+To https://github.com/wale77/waledba-repo.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/wale77/waledba-repo.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+.
+.
+~/test-repo (master)
+$ ls -lrt
+total 1
+-rw-r--r-- 1 USER 197611 187 Sep 23 18:48 pushingtest
+
+##Time to resolve, 
+
+git clone https://github.com/wale77/waledba-repo.git
+Cloning into 'waledba-repo'...
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (7/7), done.
+remote: Total 9 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (9/9), done.
+.
+.
+
+~/test-repo (master)
+$ pwd
+/c/Users/USER/test-repo
+.
+.
+.
+USER@DESKTOP-345SP79 MINGW64 ~/test-repo (master)
+$ ls -lrt
+total 1
+-rw-r--r-- 1 USER 197611 187 Sep 23 18:48 pushingtest
+drwxr-xr-x 1 USER 197611   0 Sep 24 02:22 waledba-repo/          #remote repo..I think I will be in one directory above my local
+
+repo to cloning since git puts the remote repo in current working directory.
+#cloning is powerful because it automatically downloads the remote repo and puts it in working directory of my local repo and
+more importantly synchronises the the repo's
+
+USER@DESKTOP-345SP79 MINGW64 ~/test-repo (master)
+$ cd waledba-repo/
+
+USER@DESKTOP-345SP79 MINGW64 ~/test-repo/waledba-repo (master)
+$ ls -lrt
+============================================
+
+##Time to now push my pushingtest file to GitHub
+
+git push origin master #it works !!
+
+
+
+
+
+
+
+
+
+
+
